@@ -127,6 +127,17 @@
 
     </RadioGroup>
 
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/student_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+
+        app:constraint_referenced_ids="student_graduationyear_edit, student_school_edit, student_graduationyear_title, student_school_title"
+        app:layout_constraintTop_toBottomOf="@id/base_occupation_radio_group"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <TextView
         android:id="@+id/student_data_title"
         android:layout_width="wrap_content"
@@ -134,7 +145,8 @@
         app:layout_constraintTop_toBottomOf="@id/base_occupation_radio_group"
         app:layout_constraintLeft_toLeftOf="parent"
         android:text="@string/main_specific_students_title"
-        android:layout_margin="@dimen/margin" />
+        android:layout_margin="@dimen/margin"
+        />
     <TextView
         android:id="@+id/student_school_title"
         android:layout_width="wrap_content"
@@ -142,7 +154,9 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/student_data_title"
         android:text="@string/main_specific_school_title"
-        android:layout_margin="@dimen/margin" />
+        android:layout_margin="@dimen/margin"
+
+        />
     <EditText
         android:id="@+id/student_school_edit"
         android:layout_width="wrap_content"
@@ -150,7 +164,9 @@
         android:inputType="text"
         app:layout_constraintLeft_toRightOf="@id/student_school_title"
         app:layout_constraintTop_toBottomOf="@id/student_data_title"
-        android:hint="@string/main_specific_school_title" />
+        android:hint="@string/main_specific_school_title"
+
+        />
     <TextView
         android:id="@+id/student_graduationyear_title"
         android:layout_width="wrap_content"
@@ -158,7 +174,9 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/student_school_edit"
         android:text="@string/main_specific_graduationyear_title"
-        android:layout_margin="@dimen/margin" />
+        android:layout_margin="@dimen/margin"
+
+        />
     <EditText
         android:id="@+id/student_graduationyear_edit"
         android:layout_width="wrap_content"
@@ -166,14 +184,16 @@
         android:inputType="number"
         app:layout_constraintLeft_toRightOf="@id/student_graduationyear_title"
         app:layout_constraintTop_toBottomOf="@id/student_school_edit"
-        android:hint="@string/main_specific_graduationyear_title" />
+        android:hint="@string/main_specific_graduationyear_title"
+
+        />
 
     <TextView
         android:id="@+id/additional_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/student_graduationyear_edit"
+        app:layout_constraintTop_toBottomOf="@id/student_group"
         android:text="@string/additional_title"
         android:textAllCaps="true"
         />
