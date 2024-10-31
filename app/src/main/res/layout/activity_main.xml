@@ -133,7 +133,7 @@
         android:layout_height="wrap_content"
         android:visibility="gone"
 
-        app:constraint_referenced_ids="student_graduationyear_edit, student_school_edit, student_graduationyear_title, student_school_title"
+        app:constraint_referenced_ids="student_data_title, student_graduationyear_edit, student_school_edit, student_graduationyear_title, student_school_title"
         app:layout_constraintTop_toBottomOf="@id/base_occupation_radio_group"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
