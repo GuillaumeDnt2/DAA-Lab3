@@ -80,12 +80,43 @@
         app:layout_constraintTop_toBottomOf="@id/base_birthday_edit"
         android:text="@string/main_base_nationality_title"
         android:layout_margin="@dimen/margin" />
+    <Spinner
+        android:id="@+id/base_nationality_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/base_nationality_title"
+        app:layout_constraintTop_toBottomOf="@id/base_birthday_edit" />
+    <TextView
+        android:id="@+id/base_occupation_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/base_nationality_spinner"
+        android:text="@string/main_base_occupation_title"
+        android:layout_margin="@dimen/margin" />
+    <RadioGroup
+        android:id="@+id/base_occupation_radio_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/base_occupation_title"
+        android:orientation="horizontal" >
 
+        <RadioButton
+            android:id="@+id/base_occupation_radio_button_student"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/main_base_occupation_student" />
 
+        <RadioButton
+            android:id="@+id/base_occupation_radio_button_worker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/main_base_occupation_worker" />
 
+    </RadioGroup>
 
-
-
+    
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
