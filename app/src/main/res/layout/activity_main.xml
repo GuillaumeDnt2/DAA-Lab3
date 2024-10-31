@@ -127,7 +127,73 @@
 
     </RadioGroup>
 
-    
+    <TextView
+        android:id="@+id/additional_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/base_occupation_radio_group"
+        android:text="@string/additional_title"
+        android:textAllCaps="true"
+        />
+
+    <TextView
+        android:id="@+id/base_comp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/additional_title"
+        android:text="@string/additional_email_title"
+        />
+
+    <EditText
+        android:id="@+id/emailInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autofillHints="emailAddress"
+        app:layout_constraintLeft_toRightOf="@id/base_comp"
+        app:layout_constraintTop_toBottomOf="@id/additional_title"
+        android:hint="@string/additional_email_title" />
+
+    <TextView
+        android:id="@+id/additional_comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/emailInput"
+        android:text="@string/additional_remarks_title"
+        />
+
+    <EditText
+        android:id="@+id/additional_comment_edit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/additional_comment" />
+
+    <Button
+        android:id="@+id/additional_cancel_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/additional_comment_edit"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@id/additional_ok_button"
+        android:text="@string/btn_cancel"
+        android:textAllCaps="true"/>
+
+    <Button
+        android:id="@+id/additional_ok_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/additional_comment_edit"
+        app:layout_constraintLeft_toLeftOf="@id/additional_cancel_button"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="@string/btn_ok"
+        android:textAllCaps="true"/>
+
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
