@@ -132,7 +132,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-
         app:constraint_referenced_ids="student_data_title, student_graduationyear_edit, student_school_edit, student_graduationyear_title, student_school_title"
         app:layout_constraintTop_toBottomOf="@id/base_occupation_radio_group"
         app:layout_constraintStart_toStartOf="parent"
@@ -149,40 +148,50 @@
         android:layout_margin="@dimen/margin" />
     <TextView
         android:id="@+id/student_school_title"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/width_title"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/student_data_title"
+        app:layout_constraintBottom_toBottomOf="@id/student_school_edit"
         android:text="@string/main_specific_school_title"
         android:layout_margin="@dimen/margin" />
     <EditText
         android:id="@+id/student_school_edit"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:inputType="text"
         app:layout_constraintLeft_toRightOf="@id/student_school_title"
         app:layout_constraintTop_toBottomOf="@id/student_data_title"
+        app:layout_constraintRight_toRightOf="parent"
         android:hint="@string/main_specific_school_title" />
     <TextView
         android:id="@+id/student_graduationyear_title"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/width_title"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/student_school_edit"
+        app:layout_constraintBottom_toBottomOf="@id/student_graduationyear_edit"
         android:text="@string/main_specific_graduationyear_title"
         android:layout_margin="@dimen/margin" />
     <EditText
         android:id="@+id/student_graduationyear_edit"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:inputType="number"
         app:layout_constraintLeft_toRightOf="@id/student_graduationyear_title"
         app:layout_constraintTop_toBottomOf="@id/student_school_edit"
+        app:layout_constraintRight_toRightOf="parent"
         android:hint="@string/main_specific_graduationyear_title" />
 
     <androidx.constraintlayout.widget.Group
+        android:id="@+id/worker_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="worker_data_title, worker_company_title, worker_company_edit, worker_sector_title, worker_sector_spinner, worker_experience_title, worker_experience_edit"
+        app:layout_constraintTop_toBottomOf="@id/base_occupation_radio_group"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
     <TextView
@@ -262,24 +271,26 @@
         app:layout_constraintTop_toBottomOf="@id/student_group"
         android:text="@string/additional_title"
         android:textAllCaps="true"
-        />
+        android:layout_margin="@dimen/margin" />
 
     <TextView
         android:id="@+id/base_comp"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/width_title"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/additional_title"
+        app:layout_constraintBottom_toBottomOf="@id/emailInput"
         android:text="@string/additional_email_title"
-        />
+        android:layout_margin="@dimen/margin" />
 
     <EditText
         android:id="@+id/emailInput"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:autofillHints="emailAddress"
         app:layout_constraintLeft_toRightOf="@id/base_comp"
         app:layout_constraintTop_toBottomOf="@id/additional_title"
+        app:layout_constraintRight_toRightOf="parent"
         android:hint="@string/additional_email_title" />
 
     <TextView
@@ -289,7 +300,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/emailInput"
         android:text="@string/additional_remarks_title"
-        />
+        android:layout_margin="@dimen/margin" />
 
     <EditText
         android:id="@+id/additional_comment_edit"
