@@ -61,6 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="none"
+        android:enabled="false"
         app:layout_constraintLeft_toRightOf="@id/base_birthday_title"
         app:layout_constraintTop_toBottomOf="@id/base_firstname_edit" />
     <ImageButton
@@ -71,6 +72,16 @@
         app:layout_constraintLeft_toRightOf="@id/base_birthday_edit"
         app:layout_constraintTop_toBottomOf="@id/base_firstname_edit"
         android:src="@drawable/cake" />
+    <TextView
+        android:id="@+id/base_nationality_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/base_birthday_edit"
+        android:text="@string/main_base_nationality_title"
+        android:layout_margin="@dimen/margin" />
+
+
 
 
 
