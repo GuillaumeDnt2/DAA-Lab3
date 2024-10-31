@@ -4,18 +4,25 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.RadioButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import ch.heigvd.iict.daa.labo3.Person
 import ch.heigvd.iict.daa.template.R
-
+import com.google.android.material.datepicker.MaterialDatePicker
+import java.text.SimpleDateFormat
+import java.time.Instant
+import java.time.ZoneId
+import java.util.Locale
+import kotlin.text.format
 
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var client : Person
     var textInputs : List<TextView> = listOf()
+    val datePicker = MaterialDatePicker.Builder.datePicker().build()
 
 
 
@@ -24,15 +31,34 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-        val nameInput = findViewById<EditText>(R.id.nameInput)
+        val nameInput = findViewById<EditText>(R.id.base_name_edit)
         textInputs += nameInput
 
-        val firstNameInput = findViewById<EditText>(R.id.firstNameInput)
+        val firstNameInput = findViewById<EditText>(R.id.base_firstname_edit)
         textInputs += firstNameInput
 
 
         nameInput.setHint(R.string.main_base_name_title)
         firstNameInput.setHint(R.string.main_base_firstname_title)
+
+        //Input de la date de naissance
+        val birthdayInput = findViewById<EditText>(R.id.base_birthday_edit)
+        textInputs += birthdayInput
+
+        //Ajout du bouton de birthday
+        val birthdayButton = findViewById<ImageButton>(R.id.base_birthday_button)
+        birthdayButton.setOnClickListener{
+            datePicker.show(supportFragmentManager, "birthday_picker")
+        }
+
+        datePicker.addOnPositiveButtonClickListener {
+            val selectedDateInMillis = datePicker.selection
+            if (selectedDateInMillis != null) {
+                val formatter =  SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
+                birthdayInput.setText(formatter.format(selectedDateInMillis))
+            }
+        }
+
 
         //On click de l'occupation, assigner l'user a soit un employé ou bien un etudiant
 
@@ -61,9 +87,9 @@ class MainActivity : AppCompatActivity() {
 
         val cancelButton = findViewById<Button>(R.id.cancelButton)
         cancelButton.setOnClickListener{
-            for(TextView tv : textInputs){
-
-        }
+            for(textView in textInputs){
+                textView.text = ""
+            }
         }
 
     }

@@ -80,14 +80,47 @@
         app:layout_constraintTop_toBottomOf="@id/base_birthday_edit"
         android:text="@string/main_base_nationality_title"
         android:layout_margin="@dimen/margin" />
+    <Spinner
+        android:id="@+id/base_nationality_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/base_nationality_title"
+        app:layout_constraintTop_toBottomOf="@id/base_birthday_edit" />
+    <TextView
+        android:id="@+id/base_occupation_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/base_nationality_spinner"
+        android:text="@string/main_base_occupation_title"
+        android:layout_margin="@dimen/margin" />
+    <RadioGroup
+        android:id="@+id/base_occupation_radio_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/base_occupation_title"
+        android:orientation="horizontal" >
 
+        <RadioButton
+            android:id="@+id/base_occupation_radio_button_student"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/main_base_occupation_student" />
 
+        <RadioButton
+            android:id="@+id/base_occupation_radio_button_worker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/main_base_occupation_worker" />
+
+    </RadioGroup>
 
     <TextView
         android:id="@+id/student_data_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/base_nationality_title"
+        app:layout_constraintTop_toBottomOf="@id/base_occupation_radio_group"
         app:layout_constraintLeft_toLeftOf="parent"
         android:text="@string/main_specific_students_title"
         android:layout_margin="@dimen/margin" />
@@ -123,5 +156,74 @@
         app:layout_constraintLeft_toRightOf="@id/student_graduationyear_title"
         app:layout_constraintTop_toBottomOf="@id/student_school_edit"
         android:hint="@string/main_specific_graduationyear_title" />
+
+    <TextView
+        android:id="@+id/additional_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/student_graduationyear_edit"
+        android:text="@string/additional_title"
+        android:textAllCaps="true"
+        />
+
+    <TextView
+        android:id="@+id/base_comp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/additional_title"
+        android:text="@string/additional_email_title"
+        />
+
+    <EditText
+        android:id="@+id/emailInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autofillHints="emailAddress"
+        app:layout_constraintLeft_toRightOf="@id/base_comp"
+        app:layout_constraintTop_toBottomOf="@id/additional_title"
+        android:hint="@string/additional_email_title" />
+
+    <TextView
+        android:id="@+id/additional_comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/emailInput"
+        android:text="@string/additional_remarks_title"
+        />
+
+    <EditText
+        android:id="@+id/additional_comment_edit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/additional_comment" />
+
+    <Button
+        android:id="@+id/additional_cancel_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/additional_comment_edit"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@id/additional_ok_button"
+        android:text="@string/btn_cancel"
+        android:textAllCaps="true"/>
+
+    <Button
+        android:id="@+id/additional_ok_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/additional_comment_edit"
+        app:layout_constraintLeft_toLeftOf="@id/additional_cancel_button"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="@string/btn_ok"
+        android:textAllCaps="true"/>
+
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
