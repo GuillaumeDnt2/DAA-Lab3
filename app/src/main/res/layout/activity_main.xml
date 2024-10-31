@@ -13,82 +13,93 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:text="@string/main_base_title"
-        android:layout_margin="@dimen/margin" />
+        android:layout_margin="@dimen/margin"
+        android:textAllCaps="true" />
+
     <TextView
         android:id="@+id/base_name_title"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/width_title"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin"
+        android:text="@string/main_base_name_title"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/base_data_title"
-        android:text="@string/main_base_name_title"
-        android:layout_margin="@dimen/margin" />
+        app:layout_constraintBottom_toBottomOf="@id/base_name_edit"/>
+
     <EditText
         android:id="@+id/base_name_edit"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:autofillHints="name"
         android:inputType="textPersonName"
         app:layout_constraintLeft_toRightOf="@id/base_name_title"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/base_data_title"
         android:hint="@string/main_base_name_title" />
     <TextView
         android:id="@+id/base_firstname_title"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/width_title"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin"
+        android:text="@string/main_base_firstname_title"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/base_name_edit"
-        android:text="@string/main_base_firstname_title"
-        android:layout_margin="@dimen/margin" />
+        app:layout_constraintBottom_toBottomOf="@id/base_firstname_edit" />
     <EditText
         android:id="@+id/base_firstname_edit"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:autofillHints="name"
         android:inputType="textPersonName"
         app:layout_constraintLeft_toRightOf="@id/base_firstname_title"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/base_name_edit"
         android:hint="@string/main_base_firstname_title" />
     <TextView
         android:id="@+id/base_birthday_title"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/width_title"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin"
+        android:text="@string/main_base_birthdate_title"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/base_firstname_edit"
-        android:text="@string/main_base_birthdate_title"
-        android:layout_margin="@dimen/margin" />
+        app:layout_constraintBottom_toBottomOf="@id/base_birthday_edit"/>
     <EditText
         android:id="@+id/base_birthday_edit"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:inputType="none"
         android:enabled="false"
         app:layout_constraintLeft_toRightOf="@id/base_birthday_title"
+        app:layout_constraintRight_toLeftOf="@id/base_birthday_button"
         app:layout_constraintTop_toBottomOf="@id/base_firstname_edit" />
     <ImageButton
         android:contentDescription="@string/descr_base_birthday_button"
         android:id="@+id/base_birthday_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toRightOf="@id/base_birthday_edit"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/base_firstname_edit"
         android:src="@drawable/cake" />
     <TextView
         android:id="@+id/base_nationality_title"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/width_title"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin"
+        android:text="@string/main_base_nationality_title"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/base_birthday_edit"
-        android:text="@string/main_base_nationality_title"
-        android:layout_margin="@dimen/margin" />
+        app:layout_constraintBottom_toBottomOf="@id/base_nationality_spinner" />
     <Spinner
         android:id="@+id/base_nationality_spinner"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toRightOf="@id/base_nationality_title"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/base_birthday_edit" />
     <TextView
         android:id="@+id/base_occupation_title"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/width_title"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/base_nationality_spinner"
