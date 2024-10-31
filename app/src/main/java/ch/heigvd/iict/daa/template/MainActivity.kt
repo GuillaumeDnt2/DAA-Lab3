@@ -78,6 +78,7 @@ class MainActivity : AppCompatActivity() {
                             val constraintLayout = findViewById<ConstraintLayout>(R.id.main) // Replace with your ConstraintLayout ID
                             val companyNameTextView = findViewById<TextView>(R.id.base_comp)
 
+                            // That is what makes the textView for the email move
                             ConstraintSet().apply {
                                 clone(constraintLayout)
                                 connect(companyNameTextView.id,

@@ -268,7 +268,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/student_group"
+        app:layout_constraintTop_toBottomOf="@id/base_occupation_radio_group"
         android:text="@string/additional_title"
         android:textAllCaps="true"
         android:layout_margin="@dimen/margin" />
