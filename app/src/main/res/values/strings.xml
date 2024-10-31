@@ -12,6 +12,8 @@
     <string name="main_base_occupation_student">Etudiant</string>
     <string name="main_base_occupation_worker">Employé</string>
 
+    <string name="descr_base_birthday_button">Button d\'entrée de date anniversaire</string>
+
     <string-array translatable="false" name="nationalities">
         <item>@string/ch</item>
         <item>@string/fr</item>
