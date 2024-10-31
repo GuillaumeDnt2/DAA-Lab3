@@ -126,6 +126,18 @@
             android:text="@string/main_base_occupation_worker" />
 
     </RadioGroup>
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/student_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+
+        app:constraint_referenced_ids="student_data_title, student_graduationyear_edit, student_school_edit, student_graduationyear_title, student_school_title"
+        app:layout_constraintTop_toBottomOf="@id/base_occupation_radio_group"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <TextView
         android:id="@+id/student_data_title"
         android:layout_width="wrap_content"
@@ -247,7 +259,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/student_graduationyear_edit"
+        app:layout_constraintTop_toBottomOf="@id/student_group"
         android:text="@string/additional_title"
         android:textAllCaps="true"
         />
