@@ -126,13 +126,13 @@
             android:text="@string/main_base_occupation_worker" />
 
     </RadioGroup>
-
     <TextView
         android:id="@+id/student_data_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/base_occupation_radio_group"
         app:layout_constraintLeft_toLeftOf="parent"
+        android:textAllCaps="true"
         android:text="@string/main_specific_students_title"
         android:layout_margin="@dimen/margin" />
     <TextView
@@ -167,6 +167,80 @@
         app:layout_constraintLeft_toRightOf="@id/student_graduationyear_title"
         app:layout_constraintTop_toBottomOf="@id/student_school_edit"
         android:hint="@string/main_specific_graduationyear_title" />
+
+    <androidx.constraintlayout.widget.Group
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+
+    <TextView
+        android:id="@+id/worker_data_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="true"
+        android:text="@string/main_specific_workers_title"
+        app:layout_constraintTop_toBottomOf="@id/base_occupation_radio_group"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_margin="@dimen/margin" />
+
+    <TextView
+        android:id="@+id/worker_company_title"
+        android:layout_width="@dimen/width_title"
+        android:layout_height="wrap_content"
+        android:text="@string/main_specific_compagny_title"
+        app:layout_constraintTop_toBottomOf="@id/worker_data_title"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/worker_company_edit"
+        android:layout_margin="@dimen/margin" />
+
+    <EditText
+        android:id="@+id/worker_company_edit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        app:layout_constraintLeft_toRightOf="@id/worker_company_title"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/worker_data_title"
+        android:hint="@string/main_specific_compagny_title" />
+
+    <TextView
+        android:id="@+id/worker_sector_title"
+        android:layout_width="@dimen/width_title"
+        android:layout_height="wrap_content"
+        android:text="@string/main_specific_sector_title"
+        app:layout_constraintTop_toBottomOf="@id/worker_company_edit"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/worker_sector_spinner"
+        android:layout_margin="@dimen/margin" />
+
+    <Spinner
+        android:id="@+id/worker_sector_spinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/worker_company_edit"
+        app:layout_constraintLeft_toRightOf="@id/worker_sector_title"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
+        android:id="@+id/worker_experience_title"
+        android:layout_width="@dimen/width_title"
+        android:layout_height="wrap_content"
+        android:text="@string/main_specific_experience_title"
+        app:layout_constraintTop_toBottomOf="@id/worker_sector_spinner"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/worker_experience_edit"
+        android:layout_margin="@dimen/margin" />
+
+    <EditText
+        android:id="@+id/worker_experience_edit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        app:layout_constraintTop_toBottomOf="@id/worker_sector_spinner"
+        app:layout_constraintLeft_toRightOf="@id/worker_experience_title"
+        app:layout_constraintRight_toRightOf="parent"
+        android:hint="@string/main_specific_experience_title" />
+
 
     <TextView
         android:id="@+id/additional_title"
