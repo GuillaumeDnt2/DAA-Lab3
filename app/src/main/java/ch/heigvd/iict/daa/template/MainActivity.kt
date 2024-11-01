@@ -11,6 +11,7 @@ import android.widget.ImageButton
 import android.widget.RadioGroup
 import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
@@ -28,16 +29,25 @@ import java.time.format.FormatStyle
 import java.util.Calendar
 import java.util.Date
 
-
+/**
+ * Activité principale de l'application.
+ *
+ @author Junod Arthur
+ @author Dunant Guillaume
+ @author Häffner Edwin
+ */
 class MainActivity : AppCompatActivity() {
 
     lateinit var client : Person
+
     var textInputs : List<TextView> = listOf()
+    var todayMillis = LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli()
 
     val calendarConstraint = CalendarConstraints.Builder()
-        .setEnd(LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli())
-        .setStart(LocalDateTime.of(1910,1,1,0,0,0).toInstant(ZoneOffset.UTC).toEpochMilli())
+        .setEnd(todayMillis)
+        .setStart(LocalDateTime.now().minusYears(110).toInstant(ZoneOffset.UTC).toEpochMilli())
         .build()
+
     val datePicker = MaterialDatePicker.Builder
         .datePicker()
         .setCalendarConstraints(calendarConstraint)
@@ -90,14 +100,18 @@ class MainActivity : AppCompatActivity() {
 
             // Convertir en Date pour l'afficher
             if (selectedDateInMillis != null) {
-                val date = Date(selectedDateInMillis)
-                val formattedDate = formatDateForDisplay(birthdayInput.context, date)
-                birthdayInput.setText(formattedDate)
+                if (selectedDateInMillis > todayMillis) {
+                    Toast.makeText(birthdayInput.context, "Choisissez une date de naissance valide !", Toast.LENGTH_SHORT).show()
+                }
+                else {
+                    val date = Date(selectedDateInMillis)
+                    val formattedDate = formatDateForDisplay(birthdayInput.context, date)
+                    birthdayInput.setText(formattedDate)
 
-                // Mettre à jour le calendrier avec la date sélectionnée
-                birthdayCalendar.timeInMillis = selectedDateInMillis
+                    // Mettre à jour le calendrier avec la date sélectionnée
+                    birthdayCalendar.timeInMillis = selectedDateInMillis
+                }
             }
-
         }
 
         val spinnerNationalities = findViewById<Spinner>(R.id.base_nationality_spinner)
@@ -135,6 +149,7 @@ class MainActivity : AppCompatActivity() {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinnerSectors.adapter = adapter
         }
+
         spinnerSectors.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent : AdapterView<*>?, view: View?, position : Int, id : Long) {
                 if (position == 0) {
