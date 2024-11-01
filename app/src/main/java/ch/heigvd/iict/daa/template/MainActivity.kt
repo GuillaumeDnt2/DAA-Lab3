@@ -1,14 +1,12 @@
 package ch.heigvd.iict.daa.template
 
 import android.content.Context
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
-import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Spinner
 import android.widget.TextView
@@ -17,16 +15,14 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.constraintlayout.widget.Group
 import ch.heigvd.iict.daa.labo3.Person
-import ch.heigvd.iict.daa.template.R
+import ch.heigvd.iict.daa.labo3.Student
+import ch.heigvd.iict.daa.labo3.Worker
 import com.google.android.material.datepicker.MaterialDatePicker
-import java.text.SimpleDateFormat
-import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
+import java.util.Calendar
 import java.util.Date
-import java.util.Locale
-import kotlin.text.format
 
 
 class MainActivity : AppCompatActivity() {
@@ -34,9 +30,6 @@ class MainActivity : AppCompatActivity() {
     lateinit var client : Person
     var textInputs : List<TextView> = listOf()
     val datePicker = MaterialDatePicker.Builder.datePicker().build()
-
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,9 +67,11 @@ class MainActivity : AppCompatActivity() {
 
         //Ajout du bouton de birthday
         val birthdayButton = findViewById<ImageButton>(R.id.base_birthday_button)
-        birthdayButton.setOnClickListener{
+        birthdayButton.setOnClickListener {
             datePicker.show(supportFragmentManager, "birthday_picker")
         }
+
+        val birthdayCalendar = Calendar.getInstance()
 
         datePicker.addOnPositiveButtonClickListener {
             val selectedDateInMillis = datePicker.selection
@@ -86,7 +81,11 @@ class MainActivity : AppCompatActivity() {
                 val date = Date(selectedDateInMillis)
                 val formattedDate = formatDateForDisplay(birthdayInput.context, date)
                 birthdayInput.setText(formattedDate)
+
+                // Mettre à jour le calendrier avec la date sélectionnée
+                birthdayCalendar.timeInMillis = selectedDateInMillis
             }
+
         }
 
         val spinnerNationalities = findViewById<Spinner>(R.id.base_nationality_spinner)
@@ -117,7 +116,7 @@ class MainActivity : AppCompatActivity() {
         val studentGroup = findViewById<Group>(R.id.student_group)
         val workerGroup = findViewById<Group>(R.id.worker_group)
 
-        occupationRadioGroup.setOnCheckedChangeListener { group, checkedId ->
+        occupationRadioGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.base_occupation_radio_button_student -> {
 
@@ -134,9 +133,10 @@ class MainActivity : AppCompatActivity() {
                         R.id.student_graduationyear_edit,
                         ConstraintSet.BOTTOM,
 
-                    )
+                        )
                     constraintSet.applyTo(constraintLayout)
                 }
+
                 R.id.base_occupation_radio_button_worker -> {
 
                     // Show worker group, hide student group
@@ -154,6 +154,7 @@ class MainActivity : AppCompatActivity() {
                     )
                     constraintSet.applyTo(constraintLayout)
                 }
+
                 else -> {
                     //Do nothing
                 }
@@ -169,8 +170,8 @@ class MainActivity : AppCompatActivity() {
 
 
         val cancelButton = findViewById<Button>(R.id.additional_cancel_button)
-        cancelButton.setOnClickListener{
-            for(textView in textInputs){
+        cancelButton.setOnClickListener {
+            for (textView in textInputs) {
                 textView.text = ""
             }
 
@@ -179,6 +180,48 @@ class MainActivity : AppCompatActivity() {
             workerGroup.visibility = View.GONE
         }
 
+        val okButton = findViewById<Button>(R.id.additional_ok_button)
+        okButton.setOnClickListener {
+
+            if (occupationRadioGroup.checkedRadioButtonId == R.id.base_occupation_radio_button_student) {
+
+                if (nameInput != null && firstNameInput != null && schoolInput != null && graduationYearInput != null && emailInput != null && commentInput != null) {
+
+                    client = Student(
+                        nameInput.text.toString(),
+                        firstNameInput.text.toString(),
+                        birthdayCalendar,
+                        spinnerNationalities.selectedItem.toString(),
+                        schoolInput.text.toString(),
+                        graduationYearInput.text.toString().toInt(),
+                        emailInput.text.toString(),
+                        commentInput.text.toString()
+                    )
+                }
+
+            } else if (occupationRadioGroup.checkedRadioButtonId == R.id.base_occupation_radio_button_worker) {
+                if (nameInput != null && firstNameInput != null && companyInput != null && experienceInput != null && emailInput != null && commentInput != null) {
+                    client = Worker(
+                        nameInput.text.toString(),
+                        firstNameInput.text.toString(),
+                        birthdayCalendar,
+                        spinnerNationalities.selectedItem.toString(),
+                        companyInput.text.toString(),
+                        spinnerSectors.selectedItem.toString(),
+                        experienceInput.text.toString().toInt(),
+                        emailInput.text.toString(),
+                        commentInput.text.toString()
+                    )
+                }
+            }
+
+            if (::client.isInitialized) {
+                println(client.toString())
+            } else {
+                println("Client not initialized !")
+            }
+
+        }
     }
 
 
@@ -193,8 +236,7 @@ class MainActivity : AppCompatActivity() {
      */
     fun formatDateForDisplay(context: Context, date: Date): String {
         val locale = context.resources.configuration.locales[0]
-        val dateFormat = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
-                .withLocale(locale)
+        val dateFormat = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(locale)
 
         return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().format(dateFormat)
     }
