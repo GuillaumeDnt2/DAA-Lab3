@@ -288,6 +288,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:autofillHints="emailAddress"
+        android:inputType="textEmailAddress"
         app:layout_constraintLeft_toRightOf="@id/base_comp"
         app:layout_constraintTop_toBottomOf="@id/additional_title"
         app:layout_constraintRight_toRightOf="parent"
@@ -306,6 +307,7 @@
         android:id="@+id/additional_comment_edit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:inputType="textMultiLine|textAutoCorrect|textLongMessage"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/additional_comment" />

@@ -54,6 +54,9 @@ class MainActivity : AppCompatActivity() {
         val experienceInput = findViewById<EditText>(R.id.worker_experience_edit)
         textInputs += experienceInput
 
+        val commentInpt = findViewById<EditText>(R.id.additional_comment_edit)
+        textInputs += commentInpt
+
 
         nameInput.setHint(R.string.main_base_name_title)
         firstNameInput.setHint(R.string.main_base_firstname_title)
