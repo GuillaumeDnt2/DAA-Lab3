@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.constraintlayout.widget.Group
 import ch.heigvd.iict.daa.labo3.Person
 import ch.heigvd.iict.daa.template.R
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -73,9 +74,10 @@ class MainActivity : AppCompatActivity() {
                     when (checkedId) {
                         R.id.base_occupation_radio_button_student -> {
                             //Show the student view and hide the employee view
+                            findViewById<Group>(R.id.student_group).visibility = View.VISIBLE
+                            findViewById<Group>(R.id.worker_group).visibility = View.GONE
 
-
-                            val constraintLayout = findViewById<ConstraintLayout>(R.id.main) // Replace with your ConstraintLayout ID
+                            val constraintLayout = findViewById<ConstraintLayout>(R.id.main)
                             val companyNameTextView = findViewById<TextView>(R.id.base_comp)
 
                             // That is what makes the textView for the email move
@@ -90,11 +92,26 @@ class MainActivity : AppCompatActivity() {
                         }
                         R.id.base_occupation_radio_button_worker -> {
                             //Show the employee view and hide the student view
+                            findViewById<Group>(R.id.student_group).visibility = View.GONE
+                            findViewById<Group>(R.id.worker_group).visibility = View.VISIBLE
+
+                            val constraintLayout = findViewById<ConstraintLayout>(R.id.main)
+                            val companyNameTextView = findViewById<TextView>(R.id.base_comp)
+
+                            // That is what makes the textView for the email move
+                            ConstraintSet().apply {
+                                clone(constraintLayout)
+                                connect(companyNameTextView.id,
+                                    ConstraintSet.TOP, R.id.worker_experience_edit,
+                                    ConstraintSet.BOTTOM)
+                                applyTo(constraintLayout)
+                            }
                         }
                     }
                 }
                 else -> {
                     //Hide all the views
+
                 }
             }
         }
@@ -112,6 +129,10 @@ class MainActivity : AppCompatActivity() {
             for(textView in textInputs){
                 textView.text = ""
             }
+
+            findViewById<RadioGroup>(R.id.base_occupation_radio_group).clearCheck()
+            findViewById<Group>(R.id.student_group).visibility = View.GONE
+            findViewById<Group>(R.id.worker_group).visibility = View.GONE
         }
 
     }
