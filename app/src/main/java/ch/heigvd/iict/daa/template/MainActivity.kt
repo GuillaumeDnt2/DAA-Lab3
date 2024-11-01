@@ -31,6 +31,10 @@ import java.util.Date
 
 /**
  * Activité principale de l'application.
+ * Permet de saisir des informations sur une personne.
+ * La personne peut être un étudiant ou un employé.
+ *
+ * Actuellement, le résultat s'affiche uniquement dans la console de l'appareil
  *
  @author Junod Arthur
  @author Dunant Guillaume
@@ -39,9 +43,11 @@ import java.util.Date
 class MainActivity : AppCompatActivity() {
 
     lateinit var client : Person
-
     var textInputs : List<TextView> = listOf()
     var todayMillis = LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli()
+    var selectedNationality : String = ""
+    var selectedSector : String = ""
+
 
     val calendarConstraint = CalendarConstraints.Builder()
         .setEnd(todayMillis)
@@ -76,10 +82,10 @@ class MainActivity : AppCompatActivity() {
         val experienceInput = findViewById<EditText>(R.id.worker_experience_edit)
         textInputs += experienceInput
 
-        val commentInpt = findViewById<EditText>(R.id.additional_comment_edit)
-        textInputs += commentInpt
+        val commentInput = findViewById<EditText>(R.id.additional_comment_edit)
+        textInputs += commentInput
 
-
+        //Set des hints des inputs
         nameInput.setHint(R.string.main_base_name_title)
         firstNameInput.setHint(R.string.main_base_firstname_title)
 
@@ -93,8 +99,10 @@ class MainActivity : AppCompatActivity() {
             datePicker.show(supportFragmentManager, "birthday_picker")
         }
 
+        //Créer un calendrier pour la date de naissance
         val birthdayCalendar = Calendar.getInstance()
 
+        //Listener du datePicker
         datePicker.addOnPositiveButtonClickListener {
             val selectedDateInMillis = datePicker.selection
 
@@ -114,6 +122,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        //Spinner de la nationalité
         val spinnerNationalities = findViewById<Spinner>(R.id.base_nationality_spinner)
         val nationalities = resources.getStringArray(R.array.nationalities)
         ArrayAdapter.createFromResource(
@@ -128,17 +137,18 @@ class MainActivity : AppCompatActivity() {
         spinnerNationalities.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent : AdapterView<*>?, view: View?, position : Int, id : Long) {
                 if (position == 0) {
-
+                    selectedNationality = ""
                 }else{
-                    val selectedNationality = nationalities[position]
+                    selectedNationality = nationalities[position]
                 }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
-
+                selectedNationality = ""
             }
         }
 
+        //Spinner du secteur
         val spinnerSectors = findViewById<Spinner>(R.id.worker_sector_spinner)
         val sectors = resources.getStringArray(R.array.sectors)
         ArrayAdapter.createFromResource(
@@ -153,18 +163,15 @@ class MainActivity : AppCompatActivity() {
         spinnerSectors.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent : AdapterView<*>?, view: View?, position : Int, id : Long) {
                 if (position == 0) {
-
+                    selectedSector = ""
                 }else{
-                    val selectedSector = sectors[position]
+                    selectedSector = sectors[position]
                 }
             }
-
             override fun onNothingSelected(parent: AdapterView<*>?) {
-
+                selectedSector = ""
             }
         }
-
-        //On click de l'occupation, assigner l'user a soit un employé ou bien un etudiant
 
         val occupationRadioGroup = findViewById<RadioGroup>(R.id.base_occupation_radio_group)
         val constraintLayout = findViewById<ConstraintLayout>(R.id.main)
@@ -176,11 +183,11 @@ class MainActivity : AppCompatActivity() {
             when (checkedId) {
                 R.id.base_occupation_radio_button_student -> {
 
-                    // Show student group, hide worker group
+                    // Rendre le groupe d'étudiant visible, masquer le groupe d'employé
                     studentGroup.visibility = View.VISIBLE
                     workerGroup.visibility = View.GONE
 
-                    // Adjust constraints programmatically
+                    // Ajustement du bloc des données complémentaires
                     val constraintSet = ConstraintSet()
                     constraintSet.clone(constraintLayout)
                     constraintSet.connect(
@@ -195,11 +202,11 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.base_occupation_radio_button_worker -> {
 
-                    // Show worker group, hide student group
+                    // Rendre le groupe d'employé visible, masquer le groupe d'étudiant
                     studentGroup.visibility = View.GONE
                     workerGroup.visibility = View.VISIBLE
 
-                    // Adjust constraints programmatically
+                    // Ajustement du bloc des données complémentaires
                     val constraintSet = ConstraintSet()
                     constraintSet.clone(constraintLayout)
                     constraintSet.connect(
@@ -210,7 +217,6 @@ class MainActivity : AppCompatActivity() {
                     )
                     constraintSet.applyTo(constraintLayout)
                 }
-
                 else -> {
                     //Do nothing
                 }
@@ -222,23 +228,28 @@ class MainActivity : AppCompatActivity() {
 
         emailInput.setHint(R.string.additional_email_title)
 
-        val commentInput = findViewById<EditText>(R.id.additional_comment_edit)
-
 
         val cancelButton = findViewById<Button>(R.id.additional_cancel_button)
         cancelButton.setOnClickListener {
+
+            //Reset des inputs de text
             for (textView in textInputs) {
                 textView.text = ""
             }
 
+
             findViewById<RadioGroup>(R.id.base_occupation_radio_group).clearCheck()
             studentGroup.visibility = View.GONE
             workerGroup.visibility = View.GONE
+
+            //Reset les valeurs des spinners
+            spinnerNationalities.setSelection(0)
+            spinnerSectors.setSelection(0)
         }
 
+        //Listener du bouton de validation
         val okButton = findViewById<Button>(R.id.additional_ok_button)
         okButton.setOnClickListener {
-
             if (occupationRadioGroup.checkedRadioButtonId == R.id.base_occupation_radio_button_student) {
 
                 if (nameInput != null && firstNameInput != null && schoolInput != null && graduationYearInput != null && emailInput != null && commentInput != null) {
@@ -247,7 +258,7 @@ class MainActivity : AppCompatActivity() {
                         nameInput.text.toString(),
                         firstNameInput.text.toString(),
                         birthdayCalendar,
-                        spinnerNationalities.selectedItem.toString(),
+                        selectedNationality,
                         schoolInput.text.toString(),
                         graduationYearInput.text.toString().toInt(),
                         emailInput.text.toString(),
@@ -261,9 +272,9 @@ class MainActivity : AppCompatActivity() {
                         nameInput.text.toString(),
                         firstNameInput.text.toString(),
                         birthdayCalendar,
-                        spinnerNationalities.selectedItem.toString(),
+                        selectedNationality,
                         companyInput.text.toString(),
-                        spinnerSectors.selectedItem.toString(),
+                        selectedSector,
                         experienceInput.text.toString().toInt(),
                         emailInput.text.toString(),
                         commentInput.text.toString()
@@ -278,14 +289,6 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
-    }
-
-
-
-    // Fonction appelée lorsque l'activité est détruite, utilisée pour sauvegarder l'état lors d'une rotation par exemple
-    override fun onDestroy(){
-        super.onDestroy()
-
     }
 
     /**
