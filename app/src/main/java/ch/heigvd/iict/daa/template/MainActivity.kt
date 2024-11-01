@@ -1,5 +1,7 @@
 package ch.heigvd.iict.daa.template
 
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -21,6 +23,9 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import java.text.SimpleDateFormat
 import java.time.Instant
 import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
+import java.util.Date
 import java.util.Locale
 import kotlin.text.format
 
@@ -57,6 +62,9 @@ class MainActivity : AppCompatActivity() {
         val experienceInput = findViewById<EditText>(R.id.worker_experience_edit)
         textInputs += experienceInput
 
+        val commentInpt = findViewById<EditText>(R.id.additional_comment_edit)
+        textInputs += commentInpt
+
 
         nameInput.setHint(R.string.main_base_name_title)
         firstNameInput.setHint(R.string.main_base_firstname_title)
@@ -73,9 +81,12 @@ class MainActivity : AppCompatActivity() {
 
         datePicker.addOnPositiveButtonClickListener {
             val selectedDateInMillis = datePicker.selection
+
+            // Convertir en Date pour l'afficher
             if (selectedDateInMillis != null) {
-                val formatter =  SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
-                birthdayInput.setText(formatter.format(selectedDateInMillis))
+                val date = Date(selectedDateInMillis)
+                val formattedDate = formatDateForDisplay(birthdayInput.context, date)
+                birthdayInput.setText(formattedDate)
             }
         }
 
@@ -139,6 +150,7 @@ class MainActivity : AppCompatActivity() {
         occupationRadioGroup.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
                 R.id.base_occupation_radio_button_student -> {
+
                     // Show student group, hide worker group
                     studentGroup.visibility = View.VISIBLE
                     workerGroup.visibility = View.GONE
@@ -156,6 +168,7 @@ class MainActivity : AppCompatActivity() {
                     constraintSet.applyTo(constraintLayout)
                 }
                 R.id.base_occupation_radio_button_worker -> {
+
                     // Show worker group, hide student group
                     studentGroup.visibility = View.GONE
                     workerGroup.visibility = View.VISIBLE
@@ -172,8 +185,7 @@ class MainActivity : AppCompatActivity() {
                     constraintSet.applyTo(constraintLayout)
                 }
                 else -> {
-                    //Hide all the views
-
+                    //Do nothing
                 }
             }
         }
@@ -200,13 +212,23 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
     // Fonction appelée lorsque l'activité est détruite, utilisée pour sauvegarder l'état lors d'une rotation par exemple
     override fun onDestroy(){
         super.onDestroy()
 
     }
 
+    /**
+     * Formatte une date pour l'affichage selon le système de date du téléphone.
+     */
+    fun formatDateForDisplay(context: Context, date: Date): String {
+        val locale = context.resources.configuration.locales[0]
+        val dateFormat = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
+                .withLocale(locale)
 
+        return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().format(dateFormat)
+    }
 
 }
+
+
