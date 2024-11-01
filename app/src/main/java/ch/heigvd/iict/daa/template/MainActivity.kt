@@ -16,10 +16,14 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.constraintlayout.widget.Group
 import ch.heigvd.iict.daa.labo3.Person
 import ch.heigvd.iict.daa.template.R
+import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import java.text.SimpleDateFormat
 import java.time.Instant
+import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.ZoneId
+import java.time.ZoneOffset
 import java.util.Locale
 import kotlin.text.format
 
@@ -28,7 +32,15 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var client : Person
     var textInputs : List<TextView> = listOf()
-    val datePicker = MaterialDatePicker.Builder.datePicker().build()
+
+    val calendarConstraint = CalendarConstraints.Builder()
+        .setEnd(LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli())
+        .setStart(LocalDateTime.of(1910,1,1,0,0,0).toInstant(ZoneOffset.UTC).toEpochMilli())
+        .build()
+    val datePicker = MaterialDatePicker.Builder
+        .datePicker()
+        .setCalendarConstraints(calendarConstraint)
+        .build()
 
 
 
