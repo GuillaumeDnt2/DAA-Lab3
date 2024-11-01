@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.constraintlayout.widget.Group
 import ch.heigvd.iict.daa.labo3.Person
 import ch.heigvd.iict.daa.template.R
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -42,6 +43,18 @@ class MainActivity : AppCompatActivity() {
 
         val firstNameInput = findViewById<EditText>(R.id.base_firstname_edit)
         textInputs += firstNameInput
+
+        val schoolInput = findViewById<EditText>(R.id.student_school_edit)
+        textInputs += schoolInput
+
+        val graduationYearInput = findViewById<EditText>(R.id.student_graduationyear_edit)
+        textInputs += graduationYearInput
+
+        val companyInput = findViewById<EditText>(R.id.worker_company_edit)
+        textInputs += companyInput
+
+        val experienceInput = findViewById<EditText>(R.id.worker_experience_edit)
+        textInputs += experienceInput
 
 
         nameInput.setHint(R.string.main_base_name_title)
@@ -88,34 +101,49 @@ class MainActivity : AppCompatActivity() {
         //On click de l'occupation, assigner l'user a soit un employé ou bien un etudiant
 
         val occupationRadioGroup = findViewById<RadioGroup>(R.id.base_occupation_radio_group)
+        val constraintLayout = findViewById<ConstraintLayout>(R.id.main)
+        val companyNameTextView = findViewById<TextView>(R.id.additional_title)
+        val studentGroup = findViewById<Group>(R.id.student_group)
+        val workerGroup = findViewById<Group>(R.id.worker_group)
+
         occupationRadioGroup.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
-                group.checkedRadioButtonId -> {
-                    when (checkedId) {
-                        R.id.base_occupation_radio_button_student -> {
-                            //Show the student view and hide the employee view
+                R.id.base_occupation_radio_button_student -> {
+                    // Show student group, hide worker group
+                    studentGroup.visibility = View.VISIBLE
+                    workerGroup.visibility = View.GONE
 
+                    // Adjust constraints programmatically
+                    val constraintSet = ConstraintSet()
+                    constraintSet.clone(constraintLayout)
+                    constraintSet.connect(
+                        companyNameTextView.id,
+                        ConstraintSet.TOP,
+                        R.id.student_graduationyear_edit,
+                        ConstraintSet.BOTTOM,
 
-                            val constraintLayout = findViewById<ConstraintLayout>(R.id.main) // Replace with your ConstraintLayout ID
-                            val companyNameTextView = findViewById<TextView>(R.id.base_comp)
+                    )
+                    constraintSet.applyTo(constraintLayout)
+                }
+                R.id.base_occupation_radio_button_worker -> {
+                    // Show worker group, hide student group
+                    studentGroup.visibility = View.GONE
+                    workerGroup.visibility = View.VISIBLE
 
-                            // That is what makes the textView for the email move
-                            ConstraintSet().apply {
-                                clone(constraintLayout)
-                                connect(companyNameTextView.id,
-                                    ConstraintSet.TOP, R.id.student_graduationyear_title,
-                                    ConstraintSet.BOTTOM)
-                                applyTo(constraintLayout)
-                            }
-
-                        }
-                        R.id.base_occupation_radio_button_worker -> {
-                            //Show the employee view and hide the student view
-                        }
-                    }
+                    // Adjust constraints programmatically
+                    val constraintSet = ConstraintSet()
+                    constraintSet.clone(constraintLayout)
+                    constraintSet.connect(
+                        companyNameTextView.id,
+                        ConstraintSet.TOP,
+                        R.id.worker_experience_edit,
+                        ConstraintSet.BOTTOM,
+                    )
+                    constraintSet.applyTo(constraintLayout)
                 }
                 else -> {
                     //Hide all the views
+
                 }
             }
         }
@@ -133,6 +161,10 @@ class MainActivity : AppCompatActivity() {
             for(textView in textInputs){
                 textView.text = ""
             }
+
+            findViewById<RadioGroup>(R.id.base_occupation_radio_group).clearCheck()
+            studentGroup.visibility = View.GONE
+            workerGroup.visibility = View.GONE
         }
 
     }
