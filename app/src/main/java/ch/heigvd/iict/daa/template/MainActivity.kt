@@ -2,6 +2,7 @@ package ch.heigvd.iict.daa.template
 
 import android.os.Bundle
 import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
@@ -79,6 +80,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val spinnerNationalities = findViewById<Spinner>(R.id.base_nationality_spinner)
+        val nationalities = resources.getStringArray(R.array.nationalities)
         ArrayAdapter.createFromResource(
             this,
             R.array.nationalities,
@@ -88,7 +90,22 @@ class MainActivity : AppCompatActivity() {
             spinnerNationalities.adapter = adapter
         }
 
+        spinnerNationalities.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent : AdapterView<*>?, view: View?, position : Int, id : Long) {
+                if (position == 0) {
+
+                }else{
+                    val selectedNationality = nationalities[position]
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+        }
+
         val spinnerSectors = findViewById<Spinner>(R.id.worker_sector_spinner)
+        val sectors = resources.getStringArray(R.array.sectors)
         ArrayAdapter.createFromResource(
             this,
             R.array.sectors,
@@ -96,6 +113,19 @@ class MainActivity : AppCompatActivity() {
         ).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinnerSectors.adapter = adapter
+        }
+        spinnerSectors.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent : AdapterView<*>?, view: View?, position : Int, id : Long) {
+                if (position == 0) {
+
+                }else{
+                    val selectedSector = sectors[position]
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
         }
 
         //On click de l'occupation, assigner l'user a soit un employé ou bien un etudiant
