@@ -4,11 +4,13 @@ import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -59,6 +61,9 @@ class MainActivity : AppCompatActivity() {
         val experienceInput = findViewById<EditText>(R.id.worker_experience_edit)
         textInputs += experienceInput
 
+        val commentInpt = findViewById<EditText>(R.id.additional_comment_edit)
+        textInputs += commentInpt
+
 
         nameInput.setHint(R.string.main_base_name_title)
         firstNameInput.setHint(R.string.main_base_firstname_title)
@@ -82,6 +87,26 @@ class MainActivity : AppCompatActivity() {
                 val formattedDate = formatDateForDisplay(birthdayInput.context, date)
                 birthdayInput.setText(formattedDate)
             }
+        }
+
+        val spinnerNationalities = findViewById<Spinner>(R.id.base_nationality_spinner)
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.nationalities,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinnerNationalities.adapter = adapter
+        }
+
+        val spinnerSectors = findViewById<Spinner>(R.id.worker_sector_spinner)
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.sectors,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinnerSectors.adapter = adapter
         }
 
         //On click de l'occupation, assigner l'user a soit un employé ou bien un etudiant
